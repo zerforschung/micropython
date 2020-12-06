@@ -446,6 +446,9 @@ STATIC mp_obj_t esp_scan(mp_obj_t self_in) {
 
     mp_obj_t list = mp_obj_new_list(0, NULL);
     wifi_scan_config_t config = { 0 };
+    config.scan_type = WIFI_SCAN_TYPE_ACTIVE;
+    config.scan_time.active.min = 60;
+    config.scan_time.active.max = 60;
     // XXX how do we scan hidden APs (and if we can scan them, are they really hidden?)
     MP_THREAD_GIL_EXIT();
     esp_err_t status = esp_wifi_scan_start(&config, 1);
